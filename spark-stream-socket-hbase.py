@@ -11,9 +11,12 @@ export PYSPARK_PYTHON=python3
 export PYSPARK_DRIVER_PYTHON=python3
 unset  PYSPARK_DRIVER_PYTHON_OPTS
 Start the spark streaming application by running the following command
-$SPARK_HOME/bin/spark-submit spark_stream_socket.py
+$SPARK_HOME/bin/spark-submit spark-stream-socket-hbase.py
 You may like to reduce the logging level to WARN in log4j.properties configuration
 found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if not already present.
+
+Create a table in HBase called "stocks" with a column family "info".
+
 """
 sc = SparkContext()
 ssc = StreamingContext(sc, 2)
