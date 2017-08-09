@@ -7,11 +7,12 @@ from pyspark.streaming import StreamingContext
 sc = SparkContext()
 ssc = StreamingContext(sc, 2)
 lines = ssc.socketTextStream("localhost", 9999)
-# words = lines.flatMap(lambda line: line.split()) \
+lines.pprint()
+
+# word_count = lines.flatMap(lambda line: line.split()) \
 #            .map(lambda w: (w, 1)) \
 #            .reduceByKey(lambda v1, v2: v1 + v2)
-# words.pprint()
-lines.pprint()
+# word_count.pprint()
 
 ssc.start()
 ssc.awaitTermination()
