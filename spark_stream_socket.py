@@ -5,6 +5,12 @@ from pyspark.streaming import StreamingContext
 Before running this script run "nc -lk 9999" 
 command to open a server socket on port 9999
 
+Before submitting the job, ensure the env variables are set properly.
+
+export PYSPARK_PYTHON=python3
+export PYSPARK_DRIVER_PYTHON=python3
+unset  PYSPARK_DRIVER_PYTHON_OPTS
+
 Start the spark streaming application by running the following command
 $SPARK_HOME/bin/spark-submit spark_stream_socket.py
 
