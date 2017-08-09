@@ -22,7 +22,12 @@ found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if 
 sc = SparkContext()
 ssc = StreamingContext(sc, 2)
 lines = ssc.socketTextStream("localhost", 9999)
+
+# Print the raw dstream
 lines.pprint()
+
+# Save the raw DStream
+lines.saveAsTextFiles("raw/data", "csv")
 
 # word_count = lines.flatMap(lambda line: line.split()) \
 #            .map(lambda w: (w, 1)) \
