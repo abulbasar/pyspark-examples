@@ -33,7 +33,6 @@ table = happybase.Connection(server).table(table_name)
 def bulk_insert(batch):
     table = happybase.Connection(server).table(table_name)
     for value in batch:
-        tokens = r.split(",")
         key = datetime.now().strftime('%s')
         table.put(key, value)
 
