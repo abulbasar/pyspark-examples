@@ -34,7 +34,7 @@ def bulk_insert(batch):
     table = happybase.Connection(server).table(table_name)
     for value in batch:
         key = datetime.now().strftime('%s')
-        table.put(key, value)
+        table.put(key, {"info:raw": str(value)})
 
 lines.foreachRDD(lambda rdd: rdd.foreachPartition(bulk_insert))
 
