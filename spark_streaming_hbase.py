@@ -31,7 +31,6 @@ raw.pprint()
 
 server = "localhost"
 table_name = "/tables/stocks"
-table = happybase.Connection(server).table(table_name)
 
 def bulk_insert(batch):
     table = happybase.Connection(server).table(table_name)
@@ -51,10 +50,8 @@ def bulk_insert(batch):
         print(key, value)
         table.put(key, value)
 
-def saveRDD(rdd):
-        rdd.foreachPartition(bulk_insert)
 
-raw.map(lambda p:p[1]).foreachRDD(saveRDD)
+raw.map(lambda p:p[1]).foreachRDD(lambda rdd: rdd.foreachPartition(bulk_insert))
 
 
 
