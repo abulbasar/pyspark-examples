@@ -37,7 +37,7 @@ def bulk_insert(batch):
         key = datetime.now().strftime('%s')
         table.put(key, value)
 
-raw.foreachRDD(lambda rdd: rdd.foreachPartition(bulk_insert))
+lines.foreachRDD(lambda rdd: rdd.foreachPartition(bulk_insert))
 
 
 
