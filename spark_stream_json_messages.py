@@ -33,18 +33,21 @@ lines = ssc.socketTextStream(hostname, port, StorageLevel.MEMORY_ONLY)
 #lines.pprint()
 
 def top10_hashtags(tweets):
-    tweets_terms = tweets.select(explode(split("text", ' ')).alias("term"))
-    return (tweets_terms
-     .filter("term like '#%'")
-     .groupBy("term")
-     .count()
-     .orderBy(desc("count"))
-    )
+    if "text" in tweets.columns
+        tweets_terms = tweets.select(explode(split("text", ' ')).alias("term"))
+        return (tweets_terms
+         .filter("term like '#%'")
+         .groupBy("term")
+         .count()
+         .orderBy(desc("count"))
+        )
 
 def convert_to_dataframe(rdd):
     if rdd.count() > 0:
         tweets = sqlContext.read.json(rdd)
-        top10_hashtags(tweets).show(10, False)
+        top10 = top10_hashtags(tweets)
+        if top10:
+            top10.show(10, False)
 
 lines.foreachRDD(convert_to_dataframe)
 
