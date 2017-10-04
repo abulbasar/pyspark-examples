@@ -3,6 +3,7 @@ from pyspark.sql import SQLContext
 
 from pyspark.streaming import StreamingContext
 from pyspark.storagelevel import StorageLevel
+from pyspark.sql.functions import * 
 
 
 """
@@ -23,28 +24,32 @@ found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if 
 
 
 """
+hostname, port = "localhost", 9999
+batch_interval = 2
+
 sc = SparkContext()
 sqlContext = SQLContext(sc)
-ssc = StreamingContext(sc, 2)
-lines = ssc.socketTextStream("localhost", 9999, StorageLevel.MEMORY_ONLY)
+ssc = StreamingContext(sc, batch_interval)
+lines = ssc.socketTextStream(hostname, port, StorageLevel.MEMORY_ONLY)
 
 # Print the raw dstream
 #lines.pprint()
 
+def top10_hashtags(tweets):
+    tweets_terms = tweets.select(explode(split("text", ' ')).alias("term"))
+    return (tweets_terms
+     .filter("term like '#%'")
+     .groupBy("term")
+     .count()
+     .orderBy(desc("count"))
+    )
+
 def convert_to_dataframe(rdd):
     if rdd.count() > 0:
-        sqlContext.read.json(rdd).show()
-
+        tweets = sqlContext.read.json(rdd)
+        top10_hashtags(tweets).show()
 
 lines.foreachRDD(convert_to_dataframe)
-
-# Save the raw DStream
-lines.saveAsTextFiles("raw/data", "csv")
-
-# word_count = lines.flatMap(lambda line: line.split()) \
-#            .map(lambda w: (w, 1)) \
-#            .reduceByKey(lambda v1, v2: v1 + v2)
-# word_count.pprint()
 
 ssc.start()
 ssc.awaitTermination()
