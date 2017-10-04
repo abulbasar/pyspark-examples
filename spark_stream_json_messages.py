@@ -33,7 +33,7 @@ lines = ssc.socketTextStream(hostname, port, StorageLevel.MEMORY_ONLY)
 #lines.pprint()
 
 def top10_hashtags(tweets):
-    if "text" in tweets.columns
+    if "text" in tweets.columns:
         tweets_terms = tweets.select(explode(split("text", ' ')).alias("term"))
         return (tweets_terms
          .filter("term like '#%'")
