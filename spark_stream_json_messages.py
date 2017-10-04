@@ -25,6 +25,8 @@ hostname, port = "localhost", 9999
 batch_interval = 2
 
 sc = SparkContext()
+print("Spark WebUI: ", sc.uiWebUrl)
+
 sqlContext = SQLContext(sc)
 ssc = StreamingContext(sc, batch_interval)
 lines = ssc.socketTextStream(hostname, port, StorageLevel.MEMORY_ONLY)
