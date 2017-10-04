@@ -7,9 +7,6 @@ from pyspark.sql.functions import *
 
 
 """
-Before running this script run "nc -lk 9999" 
-command to open a server socket on port 9999
-
 Before submitting the job, ensure the env variables are set properly.
 
 export PYSPARK_PYTHON=python3
@@ -17,7 +14,7 @@ export PYSPARK_DRIVER_PYTHON=python3
 unset  PYSPARK_DRIVER_PYTHON_OPTS
 
 Start the spark streaming application by running the following command
-$SPARK_HOME/bin/spark-submit spark_stream_socket.py
+$SPARK_HOME/bin/spark-submit spark_stream_json_messages.py
 
 You may like to reduce the logging level to WARN in log4j.properties configuration
 found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if not already present.
@@ -47,7 +44,7 @@ def top10_hashtags(tweets):
 def convert_to_dataframe(rdd):
     if rdd.count() > 0:
         tweets = sqlContext.read.json(rdd)
-        top10_hashtags(tweets).show()
+        top10_hashtags(tweets).show(10, False)
 
 lines.foreachRDD(convert_to_dataframe)
 
