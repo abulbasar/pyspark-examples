@@ -2,6 +2,7 @@ from pyspark import SparkContext
 from pyspark.sql import SQLContext
 
 from pyspark.streaming import StreamingContext
+from pyspark.storagelevel import StorageLevel
 
 
 """
@@ -25,7 +26,7 @@ found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if 
 sc = SparkContext()
 sqlContext = SQLContext(sc)
 ssc = StreamingContext(sc, 2)
-lines = ssc.socketTextStream("localhost", 9999)
+lines = ssc.socketTextStream("localhost", 9999, StorageLevel.MEMORY_ONLY)
 
 # Print the raw dstream
 #lines.pprint()
