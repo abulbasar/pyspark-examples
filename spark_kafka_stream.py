@@ -3,17 +3,30 @@ from pyspark.streaming.kafka import KafkaUtils
 from pyspark import SparkContext
 from pyspark.storagelevel import StorageLevel
 
+# Spark streaming batch interval 
 batch_interval = 3
+
+# Build spark context
 sc = SparkContext(appName="PythonStreamingKafka")
+
+# Build spark streaming context
 ssc = StreamingContext(sc, batch_interval)
 
-zookeeper, topic = 'localhost:2181/kafka', 'intel'
-raw = KafkaUtils.createStream(ssc, zookeeper,"spark_cg", {topic: 3})
+zookeeper, topic = 'localhost:2181/kafka', 'demo'
+
+# Build Dstream associated with Kafka
+raw = KafkaUtils.createStream(ssc, zookeeper,"spark_cg", {topic: 3}, storageLevel = StorageLevel.MEMORY_ONLY)
 #raw.pprint()
 
+# Kafka DStream contains RDD of k, v pair - tuple. The message is stored in the value. 
 lines = raw.map(lambda x: x[1])
+
+# Print the values
 lines.pprint()
 
+# Star listening with spark streaming context 
 ssc.start()
+
+# Keep the spark driver program running and wait for manual termination. 
 ssc.awaitTermination()
 print("Spark streaming application has been terminated")
