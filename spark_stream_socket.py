@@ -8,9 +8,13 @@ command to open a server socket on port 9999
 
 Before submitting the job, ensure the env variables are set properly.
 
+
+export SPARK_HOME=/usr/lib/spark-2.2.0-bin-hadoop2.7
 export PYSPARK_PYTHON=python3
 export PYSPARK_DRIVER_PYTHON=python3
 unset  PYSPARK_DRIVER_PYTHON_OPTS
+#If you are using Spark 2.2+, you need JDK 1.8. So set JAVA_HOME that points to JDK1.8
+export JAVA_HOME=/usr/java/jdk1.8.0_144/
 
 Start the spark streaming application by running the following command
 $SPARK_HOME/bin/spark-submit spark_stream_socket.py
