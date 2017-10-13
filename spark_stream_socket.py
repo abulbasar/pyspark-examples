@@ -1,5 +1,6 @@
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
+from pyspark.storagelevel import StorageLevel
 
 """
 Before running this script run "nc -lk 9999" 
@@ -24,7 +25,7 @@ hostname, port = "localhost", 9999
 
 sc = SparkContext()
 ssc = StreamingContext(sc, batch_interval)
-lines = ssc.socketTextStream(hostname, port)
+lines = ssc.socketTextStream(hostname, port, StorageLevel.MEMORY_ONLY)
 
 # Print the raw dstream
 lines.pprint()
