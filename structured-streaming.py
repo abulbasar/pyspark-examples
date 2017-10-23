@@ -4,7 +4,7 @@ from pyspark.sql.functions import split
 
 spark = (SparkSession
     .builder
-    .appName("StructuredStreamingWordCount")
+    .appName("StructuredStreaming")
     .getOrCreate())
 
 # Create DataFrame representing the stream of input lines from connection to localhost:9999
