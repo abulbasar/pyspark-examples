@@ -12,7 +12,7 @@ spark = (SparkSession
 ds1 = spark
   .readStream()
   .format("kafka")
-  .option("kafka.bootstrap.servers", "localhost:4092")
+  .option("kafka.bootstrap.servers", "localhost:9092")
   .option("subscribe", "demo")
   .load()
   
