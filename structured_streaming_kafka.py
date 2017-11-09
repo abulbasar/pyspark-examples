@@ -5,7 +5,7 @@ from pyspark.sql.functions import split
 
 spark = (SparkSession
     .builder
-    .appName("StructuredStreaming")
+    .appName("StructuredStreamingWithKafka")
     .getOrCreate())
 # Subscribe to 1 topic
 
