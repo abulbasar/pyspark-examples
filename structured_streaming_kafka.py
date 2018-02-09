@@ -33,6 +33,6 @@ query = (raw
     .format("console")
     .start())
 
-spark.streams..awaitAnyTermination()
+spark.streams.awaitAnyTermination()
 
 
