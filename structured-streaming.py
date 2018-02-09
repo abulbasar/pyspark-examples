@@ -39,11 +39,15 @@ lines = (spark
     .option("host", "localhost")
     .option("port", 9999)
     .load())
-    
+
+print("lines isStreaming: ", lines.isStreaming)
+
 # Start running the query that prints the running counts to the console
 query = (lines
     .writeStream
     .format("console")
+    .option("truncate", False)
+    .option("numRows", 1000)
     .start())
 
-query.awaitTermination()
+spark.streams.awaitAnyTermination()
