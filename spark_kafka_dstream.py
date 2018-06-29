@@ -20,6 +20,8 @@ sc = SparkContext(appName="PythonStreamingKafka")
 # Build spark streaming context
 ssc = StreamingContext(sc, batch_interval)
 
+# In MapR sandbox, the Zookeeper runs on 5181.
+# Update the port number for zookeeper if you want to run in MapR sandbox
 zookeeper, topic = 'localhost:2181/kafka', 'demo'
 
 # Build Dstream associated with Kafka
