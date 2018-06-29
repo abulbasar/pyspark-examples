@@ -3,6 +3,14 @@ from pyspark.streaming.kafka import KafkaUtils
 from pyspark import SparkContext
 from pyspark.storagelevel import StorageLevel
 
+"""
+Submit the application 
+$ spark-2.2.0-bin-hadoop2.7/bin/spark-submit \
+--packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.2.0 \
+--verbose spark_kafka_dstream.py
+"""
+
+
 # Spark streaming batch interval 
 batch_interval = 3
 
