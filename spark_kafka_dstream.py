@@ -25,7 +25,8 @@ zookeeper, topic = 'localhost:2181/kafka', 'demo'
 # Build Dstream associated with Kafka
 kafkaParams = {"auto.offset.reset": "smallest"}
 raw = KafkaUtils.createStream(ssc, zookeeper,"spark_cg",{topic: 3}, 
-                              kafkaParams = kafkaParams, storageLevel = StorageLevel.MEMORY_ONLY)
+                              kafkaParams = kafkaParams, 
+                              storageLevel = StorageLevel.MEMORY_ONLY)
 #raw.pprint()
 
 # Kafka DStream contains RDD of k, v pair - tuple. The message is stored in the value. 
