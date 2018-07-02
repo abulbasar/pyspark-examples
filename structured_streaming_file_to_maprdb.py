@@ -1,9 +1,10 @@
+
 """
 This code has been tested in mapr sandbox 6.0.1
 For detailed instruction, following this article
 https://blog.einext.com/hadoop/maprstream-to-maprdb
-
 """
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
@@ -18,13 +19,11 @@ $ wget https://raw.githubusercontent.com/abulbasar/data/master/tweets.small.json
 
 Start the file source: 
 $ shuf -n $(($RANDOM % 10)) ~/tweets.small.json > /user/mapr/tweets_raw/$(date +%s).json
-
 Above command randomly selects 10 lines from the ~/tweets.small.json and save them in a new file
 under /user/mapr/tweets_raw/
 
 Launch the streaming job
 $ /opt/mapr/spark/spark-2.2.1/bin/spark-submit --verbose ~/structured_streaming_file_to_maprdb.py
-
 """
 
 # Create spark session
@@ -59,22 +58,22 @@ raw = spark.readStream.format("socket").option("host", "localhost").option("port
 """
           
           
-# Send the stream to MaprDB 
-def data_stream_writer_func(df, checkpoint_dir, table_path):
-  return (transformed
-	        .writeStream
-          .outputMode("append")
-          .format("com.mapr.db.spark.streaming")
-          .option("checkpointLocation", checkpoint_dir)
-          .option("tablePath", table_path)
-          #.option("idFieldPath", "_id")
-          #.option("createTable", True)
-          .option("bulkMode", True)
-          .option("sampleSize", 1000))
+checkpoint_path = "/user/mapr/checkpoint"
+maprdb_table = "/tables/tweets"
+ 
+# Send the stream to MaprDB sink
+(transformed
+  .writeStream
+  .outputMode("append")
+  .format("com.mapr.db.spark.streaming")
+  .option("checkpointLocation", checkpoint_dir)
+  .option("tablePath", maprdb_table)
+  #.option("idFieldPath", "_id")
+  #.option("createTable", True)
+  .option("bulkMode", True)
+  .option("sampleSize", 1000)
+).start()
 
-maprdb_df = data_stream_writer_func(raw, "/user/mapr/checkpoint", "/tables/tweets")
-
-maprdb_df.start()
-
+# Wait for any sink to terminate to end the program
 spark.streams.awaitAnyTermination()
 
