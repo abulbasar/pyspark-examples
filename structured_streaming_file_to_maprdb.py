@@ -1,5 +1,8 @@
 """
 This code has been tested in mapr sandbox 6.0.1
+For detailed instruction, following this article
+https://blog.einext.com/hadoop/maprstream-to-maprdb
+
 """
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
@@ -19,6 +22,8 @@ $ shuf -n $(($RANDOM % 10)) ~/tweets.small.json > /user/mapr/tweets_raw/$(date +
 Above command randomly selects 10 lines from the ~/tweets.small.json and save them in a new file
 under /user/mapr/tweets_raw/
 
+Launch the streaming job
+$ /opt/mapr/spark/spark-2.2.1/bin/spark-submit --verbose ~/structured_streaming_file_to_maprdb.py
 
 """
 
