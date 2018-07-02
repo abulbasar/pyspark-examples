@@ -1,16 +1,24 @@
+"""
+This code has been tested in mapr sandbox 6.0.1
+"""
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 """
+Data source:
+The tweets.small.json can be found in 
+https://raw.githubusercontent.com/abulbasar/data/master/tweets.small.json
+
+Download the datasource:
+$ wget https://raw.githubusercontent.com/abulbasar/data/master/tweets.small.json 
+
 Start the file source: 
 $ shuf -n $(($RANDOM % 10)) ~/tweets.small.json > /user/mapr/tweets_raw/$(date +%s).json
 
 Above command randomly selects 10 lines from the ~/tweets.small.json and save them in a new file
 under /user/mapr/tweets_raw/
 
-The tweets.small.json can be found in 
-https://raw.githubusercontent.com/abulbasar/data/master/tweets.small.json 
 
 """
 
