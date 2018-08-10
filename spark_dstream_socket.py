@@ -17,7 +17,7 @@ unset  PYSPARK_DRIVER_PYTHON_OPTS
 export JAVA_HOME=/usr/java/jdk1.8.0_144/
 
 Start the spark streaming application by running the following command
-$SPARK_HOME/bin/spark-submit spark_stream_socket.py
+$SPARK_HOME/bin/spark-submit spark_dstream_socket.py
 
 You may like to reduce the logging level to WARN in log4j.properties configuration
 found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if not already present.
