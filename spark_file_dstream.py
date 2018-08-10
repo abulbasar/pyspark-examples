@@ -9,6 +9,7 @@ and download the following python file inside it that generates new files that c
 https://raw.githubusercontent.com/abulbasar/pyspark-examples/master/random_file_generator.py
 
 run this file inside /home/cloudera/input
+$ mkdir /home/cloudera/input
 $ cd /home/cloudera/input
 $ python random_file_generator.py
 
@@ -26,8 +27,11 @@ $SPARK_HOME/bin/spark-submit spark_stream_socket.py
 You may like to reduce the logging level to WARN in log4j.properties configuration
 found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if not already present.
 
-Submit the spark job
+Open another terminal and submit the spark job
 $ $SPARK_HOME/bin/spark-submit spark_file_dstream.py
+
+
+
 
 """
 
