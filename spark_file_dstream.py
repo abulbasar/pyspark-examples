@@ -25,6 +25,9 @@ $SPARK_HOME/bin/spark-submit spark_stream_socket.py
 You may like to reduce the logging level to WARN in log4j.properties configuration
 found in $SPARK_HOME/conf/log4j.properties. Copy this file from the template if not already present.
 
+Submit the spark job
+$ $SPARK_HOME/bin/spark-submit spark_file_dstream.py
+
 """
 
 input_path = "file:///home/cloudera/input"
