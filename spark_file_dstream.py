@@ -8,7 +8,8 @@ Before submitting the spark job, create a directory /user/cloudera/input
 and download the following python file inside it that generates new files that contain random numbers.
 https://raw.githubusercontent.com/abulbasar/pyspark-examples/master/random_file_generator.py
 
-run this file,
+run this file inside /home/cloudera/input
+$ cd /home/cloudera/input
 $ python random_file_generator.py
 
 
