@@ -11,6 +11,7 @@ Sign up for an app in https://apps.twitter.com/
 import tweepy
 import json
 
+
 # Retrieve the consumer keys and secrets from apps.twitter.com
 consumer_key = "6IqHdMv..."
 consumer_secret = "uvgQG..."
@@ -25,7 +26,7 @@ api = tweepy.API(auth)
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        print(status.text)
+        print(status.user.name + ": " + status.text)
         message = json.dumps(status._json).encode("utf-8")
         with open("tweets/%d.json" % status.id, "wb") as f:
           f.write(message)
