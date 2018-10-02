@@ -1,0 +1,17 @@
+{
+    "namespace": "com.example.avro",
+    "type": "record",
+    "name": "Transaction",
+    "fields": [
+        {"name": "customer_id", "type": "string"},
+        {"name": "merchant_id", "type": "string"},
+        {"name": "amount", "type": "double"},
+        {"name": "id", "type": "string"},
+        {"name": "category", 
+                    "type": {"name": "Category",
+                            "type": "enum",
+                            "symbols" : ["mobile", "pos", "web", "atm"]}
+        },
+        {"name": "timestamp", "type": "long"}
+    ]
+}
