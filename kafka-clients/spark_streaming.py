@@ -33,7 +33,12 @@ topic = "demo"
 
 #sc = SparkContext(appName = "KafkaDStreamZK")
 
-spark = SparkSession.builder.enableHiveSupport().getOrCreate()
+spark = (SparkSession
+         .builder
+         .config("spark.streaming.kafka.maxRatePerPartition", 10)
+         .enableHiveSupport()
+         .getOrCreate())
+
 sc = spark.sparkContext
 ssc = StreamingContext(sc, 10)
 
