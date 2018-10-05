@@ -23,7 +23,7 @@ https://spark.apache.org/docs/latest/streaming-kafka-integration.html
 Note, python API is not supported right now for Spark-kafka library.
 
 Submit the streaming job
-$ /usr/lib/spark-2.3.2-bin-hadoop2.7/bin/spark-submit --jars spark-streaming-kafka-0-8_2.11-2.3.2.jar  direct_stream.py
+$ /usr/lib/spark-2.3.2-bin-hadoop2.7/bin/spark-submit --jars spark-streaming-kafka-0-8_2.11-2.3.2.jar  spark_stream.py
 
 """
 
