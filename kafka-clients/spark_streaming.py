@@ -35,7 +35,7 @@ topic = "demo"
 
 spark = (SparkSession
          .builder
-         .config("spark.streaming.kafka.maxRatePerPartition", 10)
+         .config("spark.streaming.kafka.maxRatePerPartition", 10) # creating an artificial rate limit
          .enableHiveSupport()
          .getOrCreate())
 
