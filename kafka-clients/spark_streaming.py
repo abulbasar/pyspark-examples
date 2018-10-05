@@ -46,6 +46,9 @@ ssc = StreamingContext(sc, 10)
 raw_stream = KafkaUtils.createStream(ssc, zookeeper, "spark-streaming-consumer"
                     , {topic: 1}, storageLevel = StorageLevel.MEMORY_ONLY)
 
+# Above, 1 near the topic represents number of partitions. 
+# Ideally you should set it to the number of paritions of the topic.
+
 def convert_to_row(line):
     try:
         j = json.loads(line)
