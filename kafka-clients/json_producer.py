@@ -4,6 +4,16 @@ from time import time
 from kafka import KafkaProducer
 import json
 
+"""
+Install pip
+$ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+$ python get-pip.py
+$ pip install kafka
+
+
+"""
+
+
 # To send messages synchronously
 producer = KafkaProducer(bootstrap_servers = "localhost:9092")
 
