@@ -36,10 +36,16 @@ topics = ["t1"]
 kafka_params = {
    "zookeeper.connect" : "localhost:5181/kafka"
  , "metadata.broker.list" : "localhost:9092"
- , "group.id" : "Kafka_MapR-Streams_to_HBase"}
+ , "group.id" : "KafkaDirectStreamUsingSpark"}
 
 raw = KafkaUtils.createDirectStream(ssc, topics, kafka_params)
 
+def show_partition_count(rdd):
+  if rdd is not None:
+    print(rdd.getNumPartitions())
+
+
+raw.foreachRDD(show_partition_count)
 
 
 raw.pprint()
