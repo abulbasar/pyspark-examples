@@ -3,6 +3,20 @@ from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import *;
 from pyspark.storagelevel import StorageLevel
 
+"""
+This code has been tested with spark 2.3.1. spark-kafka-10. is not supported for python
+
+$ spark-submit \
+--master local[2] \
+--packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.3.1  \
+spark_streaming_kafka_direct.py 
+
+
+"""
+
+
+
+
 appName = "KafkaStreams"
 config = SparkConf().setAppName(appName)
 
@@ -25,6 +39,9 @@ kafka_params = {
  , "group.id" : "Kafka_MapR-Streams_to_HBase"}
 
 raw = KafkaUtils.createDirectStream(ssc, topics, kafka_params)
+
+
+
 raw.pprint()
 
 ssc.start()             # Start the computation
