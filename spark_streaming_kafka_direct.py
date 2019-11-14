@@ -40,13 +40,14 @@ kafka_params = {
 
 raw = KafkaUtils.createDirectStream(ssc, topics, kafka_params)
 
+"""
 def show_partition_count(rdd):
   if rdd is not None:
     print(rdd.getNumPartitions())
 
 
 raw.foreachRDD(show_partition_count)
-
+"""
 
 raw.pprint()
 
