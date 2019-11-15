@@ -34,6 +34,7 @@ enriched = (raw
 query = (enriched
     .writeStream
     .outputMode("complete")
+    .trigger(processingTime='5 seconds')
     .format("console")
     .option("truncate", False)
     .option("numRows", 1000)
