@@ -26,7 +26,9 @@ raw = (spark
 
 enriched = (raw
 .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
-.selectExpr("to_date(get_json_object(value, '$.timestamp')) as time", "get_json_object(value, '$.amount') as amount", "get_json_object(value, '$.customer_id') as customer_id")
+.selectExpr("to_date(get_json_object(value, '$.timestamp')) as time"
+            , "get_json_object(value, '$.amount') as amount"
+            , "get_json_object(value, '$.customer_id') as customer_id")
 .groupBy("customer_id")
 .agg(expr("avg(cast(amount as float))").alias("avg_amount"))
 )
