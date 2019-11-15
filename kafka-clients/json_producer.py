@@ -29,7 +29,7 @@ def get_record():
     return {"id": str(uuid1())
             , "merchant_id": "m" + str(randint(0, 1000))
             , "customer_id": "c" + str(randint(0, 1000000))
-            , "amount": str(gauss(100.0, 5.0))
+            , "amount": gauss(100.0, 25.0)
             , "category": choice(["pos", "net", "app"])
             , "timestamp": int(time())}
 
