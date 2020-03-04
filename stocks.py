@@ -8,11 +8,11 @@ output_path = "/user/mapr/stocks-agg"
 
 """
 Submit script to execute
-/opt/mapr/spark/spark-2.3.1/bin/spark-submit stocks.py  --master yarn --driver-memory 1GB --num-executors 1
-"'"
+/opt/mapr/spark/spark-2.3.1/bin/spark-submit --master yarn --deploy-mode client --num-executors 1 stocks.py
+"""
 
 
-conf = SparkConf().setIfMissing("spark.master", "local").setAppName("Stock")
+conf = sparkConf().setAppName("Stock")
 sc = SparkContext(conf = conf)
 
 rdd = sc.textFile(input_path)
@@ -24,5 +24,9 @@ agg = (rdd
 .groupByKey()
 .mapValues(lambda values: sum(values)/len(values))
 )
-agg.saveAsTextFile(output_path)                              
+agg.saveAsTextFile(output_path)
+
+
+
+
 
