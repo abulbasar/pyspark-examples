@@ -3,11 +3,11 @@ from pyspark import SparkConf
 from pyspark.sql import functions
 
 """
+kafka version: kafka_2.11-2.4.1
+
 
 export SPARK_HOME=/usr/lib/spark-2.2.0-bin-hadoop2.7
 bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0 structured_streaming_kafka.py
-
-kafka version: kafka_2.11-2.4.1
 
 Note: this code has been successfully tested with 2.3.4-bin-hadoop2.7, but it does not work with spark 2.4.*
 export SPARK_HOME=/home/cloudera/spark-2.3.4-bin-hadoop2.7
