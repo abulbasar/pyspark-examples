@@ -38,7 +38,9 @@ def main():
            .load())
     
     # transformation
-    enriched = raw.selectExpr("*", "CAST(key AS STRING)", "CAST(value AS STRING)")
+    enriched = (raw
+               .withColumn("key", functions.expr("CAST(key AS STRING)"))
+               .withColumn("value", functions.expr("CAST(value AS STRING)")))
 
     # sink
     (enriched
