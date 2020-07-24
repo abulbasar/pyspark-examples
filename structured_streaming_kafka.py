@@ -1,37 +1,53 @@
-
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode
-from pyspark.sql.functions import split
+from pyspark import SparkConf
+from pyspark.sql import functions
 
 """
-Launch spark application
-$ /usr/lib/spark-2.2.0-bin-hadoop2.7/bin/spark-submit \
---packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0,org.xerial.snappy:snappy-java:1.1.4 \
-structured_streaming_kafka.py
+
+export SPARK_HOME=/usr/lib/spark-2.2.0-bin-hadoop2.7
+bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0 structured_streaming_kafka.py
+
+kafka version: kafka_2.11-2.4.1
+
+Note: this code does not work with 2.4
 
 """
-spark = (SparkSession
-    .builder
-    .appName("StructuredStreamingWithKafka")
-    .getOrCreate())
 
-# Source: subscribe to 1 topic in Kafka
-raw = (spark
-  .readStream
-  .format("kafka")
-  .option("kafka.bootstrap.servers", "localhost:9092")
-  .option("subscribe", "demo")
-  .load())
-  
-# Sink: defined console sink
-query = (raw
-    .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
-    .writeStream
+
+def main():
+    conf = SparkConf().setMaster("local[*]")
+    conf.set("maxOffsetsPerTrigger", "2000")
+    conf.set("failOnDataLoss", "false")
+
+    spark = (SparkSession
+             .builder
+             .config(conf=conf)
+             .appName("StructuredStreamingWithKafka")
+             .getOrCreate())
+
+    topic = "demo"
+    # Source: subscribe to 1 topic in Kafka
+    raw = (spark
+           .readStream
+           .format("kafka")
+           .option("kafka.bootstrap.servers", "localhost:9092")
+           .option("subscribe", topic)
+           .load())
+    # transformation
+    enriched = raw.selectExpr("*", "CAST(key AS STRING)", "CAST(value AS STRING)")
+
+    # sink
+    (enriched.writeStream
     .format("console")
     .option("truncate", False)
     .option("numRows", 1000)
     .start())
 
-spark.streams.awaitAnyTermination()
+    spark.streams.awaitAnyTermination()
+    print("Process is complete")
+    spark.stop()
+
+if __name__ == "__main__":
+    main()
 
 
