@@ -18,12 +18,12 @@ Run the application
 $ python json_producer.py
 """
 
+host = "demo1"
+topic = "t1"
+port = 9092
 
 # To send messages synchronously
-producer = KafkaProducer(bootstrap_servers = "sandbox:9092")
-
-# Kafka topic
-topic = "t1"
+producer = KafkaProducer(bootstrap_servers = f"{host}:{port}")
 
 def get_record():
     return {"id": str(uuid1())
