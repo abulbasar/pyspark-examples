@@ -12,7 +12,7 @@ $ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 $ python get-pip.py
 
 Install kafka package
-$ pip install kafka
+$ pip install kafka-python
 
 Run the application
 $ python json_producer.py
