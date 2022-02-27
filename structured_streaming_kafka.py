@@ -23,7 +23,8 @@ def main():
              .config(conf=conf)
              .appName("StructuredStreamingWithKafka")
              .getOrCreate())
-
+    spark.sparkContext.setLogLevel("WARN")
+    
     topic = "demo"
     # Source: subscribe to 1 topic in Kafka
     raw = (spark
