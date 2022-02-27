@@ -1,9 +1,13 @@
 from kafka import KafkaConsumer
 
 # To consume messages
-consumer = KafkaConsumer("tnx_json",
+host = "demo1"
+topic = "t1"
+port = 9092
+
+consumer = KafkaConsumer(topic,
                          group_id="my_group",
-                         bootstrap_servers=["localhost:9092"])
+                         bootstrap_servers=[f"{host}:{port}"])
 
 for msg in consumer:
     print(msg)
