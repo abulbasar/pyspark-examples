@@ -7,7 +7,6 @@ port = 9092
 group_id = "g1"
 
 consumer = KafkaConsumer(topic,
-                         group_id="my_group",
                          auto_offset_reset = "earliest",
                          group_id = group_id,
                          enable_auto_commit = True,
