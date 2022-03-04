@@ -19,7 +19,7 @@ $ python json_producer.py
 """
 
 host = "demo1"
-topic = "t1"
+topic = "T1"
 port = 9092
 
 # To send messages synchronously
@@ -37,7 +37,7 @@ def get_record():
 for i in range(100):
     record = get_record()
     print(record)
-    producer.send(topic, json.dumps(record).encode("utf-8"))
+    producer.send(topic, key = None, value = json.dumps(record).encode("utf-8"))
     sleep(0.3)
 
 producer.flush()
