@@ -31,7 +31,7 @@ def main():
     raw = (spark
            .readStream
            .format("kafka")
-           .option("kafka.bootstrap.servers", "localhost:9092")
+           .option("kafka.bootstrap.servers", "demo1:9092,demo2:9092")
            .option("subscribe", topic)
            .option("startingOffsets", "earliest")
            .option("maxOffsetsPerTrigger","100")
