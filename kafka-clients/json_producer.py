@@ -19,7 +19,7 @@ $ python json_producer.py
 """
 
 host = "demo1"
-topic = "T1"
+topic = "events"
 port = 9092
 
 # To send messages synchronously
