@@ -3,11 +3,12 @@ from pyspark import SparkConf
 from pyspark.sql import functions
 
 """
-kafka version: kafka_2.11-2.4.1
+kafka version: kafka_2.12-2.8.1
+Spark version: spark-3.2.1-bin-hadoop3.2.tgz
 
+export SPARK_HOME=/app/spark
 
-export SPARK_HOME=/usr/lib/spark-2.3.4-bin-hadoop2.7
-$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 structured_streaming_kafka.py
+$SPARK_HOME/bin/spark-submit --master yarn --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.1 structured_streaming_kafka.py
 
 Note: this code has been successfully tested with 2.3.4-bin-hadoop2.7, but it does not work with spark 2.4.*
 bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.4 structured_streaming_kafka.py
@@ -25,7 +26,7 @@ def main():
              .getOrCreate())
     spark.sparkContext.setLogLevel("WARN")
     
-    topic = "demo"
+    topic = "events"
     # Source: subscribe to 1 topic in Kafka
     raw = (spark
            .readStream
