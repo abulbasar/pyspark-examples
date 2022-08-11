@@ -2,15 +2,18 @@ from kafka import KafkaConsumer
   
 """
 Create a topic in Kafka
-$ /app/kafka/bin/kafka-topics.sh --bootstrap-server demo1:9092,demo2:9092 \
+$ /app/kafka/bin/kafka-topics.sh --bootstrap-server sa01:9092,sa02:9092 \
 --topic events --create --replication-factor 1 --partitions 2
+
+Start the consume
+python3 json_consumer.py
 
 """
 
 
 # To consume messages
 
-host = "demo1"
+host = "sa01"
 topic = "events"
 port = 9092
 group_id = "g1"
