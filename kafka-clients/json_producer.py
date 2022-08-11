@@ -16,9 +16,15 @@ $ pip install kafka-python
 
 Run the application
 $ python json_producer.py
+
+$ $KAFKA_HOME/bin/kafka-topics.sh  --bootstrap-server sa01:9092 --topic events --create --replication-factor 1 --partitions 1
+
+Producer Properties
+https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html
+
 """
 
-host = "demo1"
+host = "sa01"
 topic = "events"
 port = 9092
 
@@ -33,8 +39,9 @@ def get_record():
             , "category": choice(["pos", "net", "app"])
             , "timestamp": int(time())}
 
+n = 100
 
-for i in range(100):
+for i in range(n):
     record = get_record()
     print(record)
     producer.send(topic, key = None, value = json.dumps(record).encode("utf-8"))
